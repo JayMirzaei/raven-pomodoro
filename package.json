@@ -1,0 +1,27 @@
+{
+  "name": "raven-pomodoro",
+  "private": true,
+  "version": "0.0.1",
+  "workspaces": [
+    "apps/desktop"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace=apps/desktop",
+    "lint": "eslint .",
+    "typecheck": "npm run typecheck --workspace=apps/desktop && tsc --noEmit -p supabase/tsconfig.json",
+    "test": "vitest run",
+    "check": "npm run lint && npm run typecheck && npm test"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "^0.3.16",
+    "@eslint/js": "^9.39.5",
+    "eslint": "^9.39.5",
+    "globals": "^17.14.0",
+    "typescript-eslint": "^8.73.0",
+    "vitest": "^3.2.7"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  }
+}

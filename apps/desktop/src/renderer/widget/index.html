@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Raven</title>
+    <link rel="stylesheet" href="./widget.css" />
+  </head>
+  <body>
+    <div id="raven" class="raven phase-work">
+      <svg id="ring" class="ring" viewBox="0 0 192 192">
+        <circle class="backdrop" cx="96" cy="96" r="54" />
+        <circle class="ring-track" cx="96" cy="96" r="58" />
+        <circle id="ring-progress" class="ring-progress" cx="96" cy="96" r="58" />
+      </svg>
+      <div id="sprite" class="sprite"></div>
+      <div id="stats" class="stats">0 today</div>
+      <div id="time" class="time">25:00</div>
+    </div>
+    <script type="module" src="./widget.ts"></script>
+  </body>
+</html>

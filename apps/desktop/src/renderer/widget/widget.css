@@ -1,0 +1,122 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 192px;
+  height: 192px;
+  background: transparent;
+  overflow: hidden;
+  -webkit-user-select: none;
+  user-select: none;
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+}
+
+.raven {
+  position: relative;
+  width: 192px;
+  height: 192px;
+  cursor: grab;
+}
+
+.raven:active {
+  cursor: grabbing;
+}
+
+.ring {
+  position: absolute;
+  inset: 0;
+  transform: rotate(-90deg);
+}
+
+.backdrop {
+  fill: #fafafa;
+}
+
+.ring-track {
+  fill: none;
+  stroke: rgba(0, 0, 0, 0.1);
+  stroke-width: 6;
+}
+
+.ring-progress {
+  fill: none;
+  stroke: #9a9aa2;
+  stroke-width: 6;
+  stroke-linecap: round;
+  stroke-dasharray: 364.42;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 0.9s linear;
+}
+
+.phase-break .ring-progress {
+  stroke: #d4d4d8;
+}
+
+.sprite {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 96px;
+  height: 96px;
+  transform: translate(-50%, -50%);
+  background-repeat: no-repeat;
+  background-size: 192px 96px; /* 2 frames, 96px each at 6x scale */
+  image-rendering: pixelated;
+  animation: step-frames 2.2s steps(2) infinite;
+}
+
+.phase-work .sprite {
+  background-image: url('../../assets/sprites/character/working.png');
+}
+
+.phase-break .sprite {
+  background-image: url('../../assets/sprites/character/break.png');
+}
+
+.phase-paused .sprite {
+  background-image: url('../../assets/sprites/character/idle.png');
+  animation-duration: 3.4s;
+}
+
+@keyframes step-frames {
+  from {
+    background-position-x: 0;
+  }
+  to {
+    background-position-x: -192px;
+  }
+}
+
+.time,
+.stats {
+  position: absolute;
+  left: 50%;
+  bottom: 9px;
+  transform: translateX(-50%);
+  font-size: 14px;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.55);
+  padding: 2px 9px;
+  border-radius: 10px;
+  transition: opacity 0.15s ease;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+/* Default: show today's count for a running visual "well done" nudge.
+   On hover: swap to the exact countdown. */
+.time {
+  opacity: 0;
+}
+
+.raven:hover .time {
+  opacity: 1;
+}
+
+.raven:hover .stats {
+  opacity: 0;
+}

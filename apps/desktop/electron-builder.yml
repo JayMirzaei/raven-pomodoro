@@ -1,0 +1,57 @@
+appId: com.raven.app
+productName: Raven
+# electron-builder can't auto-detect the Electron version in an npm
+# workspaces monorepo (electron is hoisted to the repo root, not this
+# package's own node_modules), so it's pinned explicitly here.
+electronVersion: 33.4.11
+
+directories:
+  output: release
+
+# Keep node_modules (production deps) and out/ (compiled code) -- that's the
+# default electron-builder behavior -- but exclude source-only files that
+# don't need to ship: TS sources (bundled into out/ already), tests, build
+# configs, the local python art-generation scripts, and .env (its values are baked into out/
+# at build time via electron.vite.config.ts's `define`, so it's not needed
+# at runtime -- and shouldn't be shipped as a plain-text file regardless).
+files:
+  - '**/*'
+  - '!src/**/*'
+  - '!scripts/**/*'
+  - '!test/**/*'
+  - '!electron.vite.config.*'
+  - '!tsconfig*.json'
+  - '!.env'
+  - '!.env.example'
+  - '!*.md'
+  - '!.tsbuild/**/*'
+  - '!**/*.tsbuildinfo'
+
+# Assets read at runtime by the main process (tray icon) -- unpacked as
+# real files in resources/, not inside the asar archive, since some OS
+# tray APIs need a real file path. See src/main/paths.ts.
+extraResources:
+  - from: src/assets
+    to: assets
+
+# appId, productName and the package name in package.json ("raven-desktop")
+# are kept from earlier releases. Electron names the per-user data folder
+# after the package name, and the OS ties autostart and taskbar entries to the
+# app id, so renaming them would make an update start with an empty store.
+# Only the download file names say "Raven-Pomodoro".
+linux:
+  target:
+    - AppImage
+  icon: src/assets/icons/app-icon.png
+  category: Utility
+  artifactName: Raven-Pomodoro-${version}-linux-${arch}.${ext}
+
+mac:
+  icon: src/assets/icons/app-icon.png
+  artifactName: Raven-Pomodoro-${version}-mac-universal.${ext}
+
+win:
+  icon: src/assets/icons/app-icon.png
+
+nsis:
+  artifactName: Raven-Pomodoro-${version}-windows-setup.${ext}
