@@ -1,7 +1,7 @@
 {
   "name": "raven-desktop",
   "private": true,
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "A pixel-art desktop widget for running Pomodoro sessions",
   "author": "Jay Mirzaei",
   "main": "./out/main/index.js",
